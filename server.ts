@@ -1,7 +1,8 @@
 import express, { Request, Response } from "express";
-import path from "path";
+import path from "node:path";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
+import fs from "node:fs";
 
 const app = express();
 const PORT = 3000;
@@ -34,7 +35,31 @@ interface SyncRecord {
   status: "synced";
 }
 
-const syncStore: SyncRecord[] = [
+const dataDirectory = path.join(process.cwd(), "data");
+const dataFile = path.join(dataDirectory, "sync-records.json");
+
+if (!fs.existsSync(dataDirectory)) {
+  fs.mkdirSync(dataDirectory, { recursive: true });
+}
+
+let syncStore: SyncRecord[];
+
+if (fs.existsSync(dataFile)) {
+  try {
+    syncStore = JSON.parse(fs.readFileSync(dataFile, "utf-8"));
+  } catch {
+    console.error("Could not read saved records. Starting with demo records.");
+    syncStore = [];
+  }
+} else {
+  syncStore = [];
+}
+
+function saveSyncStore() {
+  fs.writeFileSync(dataFile, JSON.stringify(syncStore, null, 2), "utf-8");
+}
+
+syncStore = [ 
   {
     id: "sample-rec-1",
     type: "assessment",
