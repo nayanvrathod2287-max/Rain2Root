@@ -1,0 +1,6 @@
+{
+  "name": "Jalsanchay - Rainwater Harvesting & Groundwater Recharge",
+  "description": "Smart GIS-based rainwater harvesting, artificial groundwater recharge calculation, and silt filtration platform designed for buildings, societies, houses, and farms.",
+  "requestFramePermissions": ["microphone", "geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
