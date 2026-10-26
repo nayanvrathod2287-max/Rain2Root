@@ -3,7 +3,6 @@ import path from "node:path";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
 import fs from "node:fs";
-
 const app = express();
 const PORT = 3000;
 
@@ -59,7 +58,8 @@ function saveSyncStore() {
   fs.writeFileSync(dataFile, JSON.stringify(syncStore, null, 2), "utf-8");
 }
 
-syncStore = [ 
+if (syncStore.length === 0 && !fs.existsSync(dataFile)) {
+  syncStore = [ 
   {
     id: "sample-rec-1",
     type: "assessment",
@@ -94,6 +94,7 @@ syncStore = [
     status: "synced",
   },
 ];
+}
 
 // Health Check
 app.get("/api/health", (_req: Request, res: Response) => {
@@ -321,4 +322,4 @@ async function startServer() {
   });
 }
 
-startServer();
+startServer()
