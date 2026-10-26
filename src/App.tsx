@@ -20,6 +20,7 @@ import {
   FarmAssessment, 
   UserProfile 
 } from './types';
+import { WelcomeScreen } from './components/WelcomeScreen';
 import { t, getTranslation } from './utils/translations';
 import { Header } from './components/Header';
 import { VoiceAssistedBar } from './components/VoiceAssistedBar';
@@ -55,10 +56,13 @@ export type NavTab =
   | 'sync_center'
   | 'login';
 
+const THEME_ORDER: AppTheme[] = ['contrast-light-black', 'emerald-fresh', 'night-calm'];
+
 export default function App() {
   // Localization & Theming
   const [lang, setLang] = useState<Language>('mr');
-  const [theme, setTheme] = useState<AppTheme>('contrast-light-black');
+  const [theme, setTheme] = useState<AppTheme>('emerald-fresh');
+  const [showWelcome, setShowWelcome] = useState(true);
   const [textScale, setTextScale] = useState<TextScale>('large'); // default large for farmer readability
   const [voiceEnabled, setVoiceEnabled] = useState<boolean>(true);
 
@@ -262,7 +266,24 @@ export default function App() {
   const textScaleClass =
     textScale === 'xl' ? 'text-xl' : textScale === 'large' ? 'text-lg' : 'text-base';
 
+  if (showWelcome) {
   return (
+    <WelcomeScreen
+      lang={lang}
+      onLanguageChange={setLang}
+      onContinue={() => {
+        setShowWelcome(false);
+        setActiveTab('login');
+      }} 
+    />
+  );
+}
+  return (
+
+
+    
+
+    
     <div
       id="jalsanchay-app"
       className={`min-h-screen flex flex-col font-sans transition-colors ${textScaleClass} ${
@@ -278,8 +299,9 @@ export default function App() {
         theme={theme}
         onThemeToggle={() =>
           setTheme((prev) => {
-            if (prev === 'contrast-light-black') return 'emerald-fresh';
-            return 'contrast-light-black';
+            const currentIndex = THEME_ORDER.indexOf(prev);
+            const nextIndex = (currentIndex + 1) % THEME_ORDER.length;
+            return THEME_ORDER[nextIndex];
           })
         }
         onSelectTheme={setTheme}
@@ -502,24 +524,7 @@ export default function App() {
           </footer>
         </div>
       </div>
-
-      {/* Modals */}
-      <AuthModal
-        isOpen={isAuthModalOpen}
-        onClose={() => setIsAuthModalOpen(false)}
-        lang={lang}
-        theme={theme}
-        userProfile={userProfile}
-        onSaveProfile={handleUpdateProfile}
-      />
-
-      {/* Dedicated Custom Prompt Modal */}
-      <CustomPromptModal
-        isOpen={isCustomPromptModalOpen}
-        onClose={() => setIsCustomPromptModalOpen(false)}
-        lang={lang}
-        theme={theme}
-      />
     </div>
   );
 }
+      

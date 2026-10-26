@@ -164,7 +164,7 @@ export const Header: React.FC<HeaderProps> = ({
             })}
           </div>
 
-          {/* Theme Selector: Contrast Light (Black) | Emerald */}
+          {/* Theme Selector: Contrast Light (Black) | Emerald | Night Calm */}
           <div 
             id="theme-selector-group"
             className={`inline-flex p-0.5 rounded-lg border text-xs font-bold ${
@@ -204,6 +204,38 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0"></span>
               <span>हिरवा (Emerald)</span>
+            </button>
+
+            <button
+              id="theme-btn-night-calm"
+              onClick={() => handleSelectTheme('night-calm')}
+              className={`px-2.5 py-1 rounded font-black transition-all flex items-center gap-1.5 ${
+                theme === 'night-calm'
+                  ? 'bg-slate-800 text-slate-100 shadow'
+                  : isContrastLight
+                  ? 'text-black hover:bg-slate-200'
+                  : 'text-emerald-200 hover:text-white'
+              }`}
+              title="Night Calm Mode"
+            >
+              <span className="w-2.5 h-2.5 rounded-full bg-sky-400 shrink-0"></span>
+              <span>Night Calm</span>
+            </button>
+
+            <button
+              id="theme-btn-high-contrast-solar"
+              onClick={() => handleSelectTheme('high-contrast-solar')}
+              className={`px-2.5 py-1 rounded font-black transition-all flex items-center gap-1.5 ${
+                theme === 'high-contrast-solar'
+                  ? 'bg-amber-300 text-slate-950 shadow'
+                  : isContrastLight
+                  ? 'text-black hover:bg-slate-200'
+                  : 'text-emerald-200 hover:text-white'
+              }`}
+              title="High Contrast Solar Mode"
+            >
+              <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0"></span>
+              <span>Solar</span>
             </button>
           </div>
 

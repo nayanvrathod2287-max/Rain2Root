@@ -6,7 +6,7 @@
 
 export type Language = 'mr' | 'hi' | 'en';
 
-export type AppTheme = 'contrast-light-black' | 'emerald-fresh' | 'night-calm';
+export type AppTheme = 'contrast-light-black' | 'emerald-fresh' | 'night-calm' | 'high-contrast-solar';
 
 export type TextScale = 'normal' | 'large' | 'xl';
 

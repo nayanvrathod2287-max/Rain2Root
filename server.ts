@@ -98,7 +98,7 @@ if (syncStore.length === 0 && !fs.existsSync(dataFile)) {
 
 // Health Check
 app.get("/api/health", (_req: Request, res: Response) => {
-  res.json({
+  saveSyncStore();({
     status: "healthy",
     service: "Inverted Umbrella Groundwater Recharge Platform",
     team: "Team 4 - Vaishnavi, Prajay, Nayan, Shruti",
@@ -322,4 +322,5 @@ async function startServer() {
   });
 }
 
-startServer()
+startServer();
+
