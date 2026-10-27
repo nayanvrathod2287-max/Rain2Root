@@ -1,4 +1,4 @@
-##🌧️ Rain2Root
+🌧️ Rain2Root
 ### Rainwater Harvesting & Groundwater Recharge
 
 **Rain2Root** is a web-based project designed to promote rainwater harvesting, groundwater recharge, and sustainable water management through an accessible digital interface.
